@@ -1,14 +1,14 @@
-= nwjs-vue-reactivity-issue =
+# nwjs-vue-reactivity-issue
 
 Demo showing issues with reactivity in an nwjs environment.
 
-== Installation ==
+## Installation
 
 ```
 npm install
 ```
 
-== Running the Demo ==
+## Running the Demo
 
 ```
 npm run start
