@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+
+<h2>Inside</h2>
+
+<div id="app">
+    Counter: {{ counter }}
+</div>
+
+<script type="module">
+    import { createApp } from 'vue/dist/vue.esm-bundler.js' // using runtime build to compile template on-the-fly for this demo only
+
+    const CounterApp = {
+        setup() {
+            const counter = nw.global.counter;
+
+            return {
+                counter
+            }
+        }
+    }
+
+    const app = createApp(CounterApp)
+    app.mount(document.getElementById('app'));
+</script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+
+<h2>Outside</h2>
+
+<p style="color: red">It does work, but it's absolutely disgraceful...</p>
+
+<div id="app">
+    Counter: {{ $store.state.counter }}
+    <button @click="$store.commit('increase')">counter++</button>
+</div>
+
+<script type="module">
+    import { createApp, onMounted, ref } from 'vue/dist/vue.esm-bundler.js' // using runtime build to compile template on-the-fly for this demo
+    import { createStore, useStore } from 'vuex'
+
+    nw.global._storeTemplate = {
+        state: {
+            counter: 1,
+            _changeToggle: false
+        },
+        mutations: {
+            // Listening for any mutation or action on the global store and subsequently triggering
+            // a mutation in the store of the window that is being reflected (even with display: none)
+            // in the DOM will make it work!
+            _changeToggle(state) {
+                state._changeToggle = !state._changeToggle
+            },
+            increase(state) {
+                state.counter++
+            }
+        }
+    }
+    
+    nw.global.store = createStore(nw.global._storeTemplate)
+
+    nw.global._stores = [  ]
+    
+    // hackety-hack: see mutation _changeToggle in the store above
+    nw.global.store.subscribe((mutation, state) => {
+        Object.values(nw.global._stores).forEach(s => s.commit('_changeToggle'))
+        // we could do this instead, but it will result in the counter being increased by the number of stores that are being updated
+        // Object.values(nw.global._stores).forEach(s => s.commit(mutation.type, mutation.payload))
+    })
+    nw.global.store.subscribeAction((action, state) => {
+        Object.values(nw.global._stores).forEach(s => s.commit('_changeToggle'))
+        // we could do this instead, but it will result in the counter being increased by the number of stores that are being updated
+        // Object.values(nw.global._stores).forEach(s => s.dispatch(action.type, action.payload))
+    })
+        
+    const CounterApp = {
+        setup() {
+            const store = useStore()
+            const counter = store.state.counter
+
+            return {
+                counter
+            }
+        }
+    }
+
+    const app = createApp(CounterApp)
+    app.use(nw.global.store)
+    app.mount(document.getElementById('app'));
+</script>
+
+<iframe id="iframe" src="04_working__vuex_reactivity--iframe.html"></iframe>

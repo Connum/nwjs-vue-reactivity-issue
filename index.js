@@ -1,0 +1,1 @@
+nw.Window.open('http://localhost:3000/index.html', {}, () => {})

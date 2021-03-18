@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+
+<h2>Outside</h2>
+
+<p style="color: red">Notice how it doesn't even work in the outside page now.<br>
+But when you open the console and output <code>nw.global.store.state.counter</code>,<br>
+you can see that it does update in the background, but the view is not being updated.<br>
+You can also make the iframe reload via <button onclick="iframe.contentWindow.location.reload()"><code>location.reload()</code></button><br>
+or even <button onclick="location.reload()">reload the whole page</button> to see the updated store content!
+</p>
+
+<div id="app">
+    Counter: {{ counter }}
+    <button @click="$store.commit('increase')">counter++</button>
+</div>
+
+<script type="module">
+    import { createApp, onMounted, ref } from 'vue/dist/vue.esm-bundler.js' // using runtime build to compile template on-the-fly for this demo
+    import { createStore, useStore } from 'vuex'
+
+    // only create it once, so we can reload the page to see that it maintains the state
+    if (!nw.global.store) {
+        nw.global.store = createStore({
+            state: {
+                counter: 1
+            },
+            mutations: {
+                increase(state) {
+                    state.counter++
+                }
+            }
+        })
+    }
+        
+    const CounterApp = {
+        setup() {
+            const store = useStore()
+            const counter = store.state.counter
+
+            return {
+                counter
+            }
+        }
+    }
+
+    const app = createApp(CounterApp)
+    app.use(nw.global.store)
+    app.mount(document.getElementById('app'));
+</script>
+
+<iframe id="iframe" src="03_not_working__vuex_reactivity--iframe.html"></iframe>

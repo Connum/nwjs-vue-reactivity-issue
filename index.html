@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+
+<style>
+    *:not(code) {
+        font-family: sans-serif;
+    }
+</style>
+
+<p>Iframes are used as a quick example, but the issue applies cross-window as well</p>
+
+<h2>Demo 1</h2>
+<a href="01_working__global_reactivity.html" target="_blank"><strong>almost working (with issues):</strong> Reactivity via <code>nw.global</code> (using <code>require()</code> and no vite)</a>
+
+<h2>Demo 2</h2>
+<a href="http://localhost:3000/02_not_working__global_reactivity.html" target="_blank"><strong>NOT working:</strong> Reactivity via <code>nw.global</code> (using <code>import</code> with vite)</a>
+
+<h2>Demo 3</h2>
+<a href="http://localhost:3000/03_not_working__vuex_reactivity.html" target="_blank"><strong>NOT working:</strong> Reactivity via <code>vuex</code></a>
+
+<h2>Demo 4</h2>
+<a href="http://localhost:3000/04_working__vuex_reactivity.html" target="_blank"><strong>working:</strong> Reactivity via <code>vuex</code> with a local store for the iframe and some dirty hacks</a>

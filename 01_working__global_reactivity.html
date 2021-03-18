@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+
+<h2>Outside</h2>
+
+<p style="color: red">
+    1. Sometimes, when you click the button too quickly after the window opens,<br>
+    you will have to click two or three times or more to see the update.
+</p>
+<p style="color: red">
+    2. If you close and reopen this demo window, it will stop working until you restart the whole application.
+</p>
+
+<div id="app">
+    Counter: {{ counter }}
+    <button @click="counter++">counter++</button>
+</div>
+
+<script>
+    const { createApp, ref } = require('vue')
+        
+    const CounterApp = {
+        setup() {
+		    nw.global.counter = ref(1)
+			
+            const counter = nw.global.counter
+
+            return {
+                counter
+            }
+        }
+    }
+
+    const app = createApp(CounterApp)
+    app.mount(document.getElementById('app'));
+</script>
+
+<iframe src="01_working__global_reactivity--iframe.html"></iframe>

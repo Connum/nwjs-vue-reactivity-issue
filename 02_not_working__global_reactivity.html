@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+
+<h2>Outside</h2>
+
+<p style="color: red">
+    Only the outside page reacts to the change.
+</p>
+
+<div id="app">
+    Counter: {{ counter }}
+    <button @click="counter++">counter++</button>
+</div>
+
+<script type="module">
+    import { createApp, ref } from 'vue/dist/vue.esm-bundler.js' // using runtime build to compile template on-the-fly for this demo only
+        
+    const CounterApp = {
+        setup() {
+            nw.global.counter = ref(1)
+
+            const counter = nw.global.counter
+
+            return {
+                counter
+            }
+        }
+    }
+
+    const app = createApp(CounterApp)
+    app.mount(document.getElementById('app'));
+</script>
+
+<iframe src="02_not_working__global_reactivity--iframe.html"></iframe>

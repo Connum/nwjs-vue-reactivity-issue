@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+
+<h2>Inside</h2>
+
+<div id="app">
+    <div style="display:none">{{ $store.state._changeToggle }} </div> <!-- <== this is needed to trigger the update -->
+    Counter: {{ $store.state.counter }}
+</div>
+
+<script type="module">
+    import { createApp } from 'vue/dist/vue.esm-bundler.js' // using runtime build to compile template on-the-fly for this demo
+    import { createStore, useStore } from 'vuex'
+
+    const localStore = createStore(nw.global._storeTemplate)
+    nw.global._stores.push(localStore)
+
+    const CounterApp = {
+        setup() {
+            const store = useStore()
+            const counter = store.state.counter;
+
+            return {
+                counter
+            }
+        }
+    }
+
+    const app = createApp(CounterApp)
+    app.use(localStore)
+    app.mount(document.getElementById('app'));
+</script>

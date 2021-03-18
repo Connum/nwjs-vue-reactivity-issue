@@ -1,0 +1,22 @@
+{
+  "name": "nwjs-vue-reactivity-issue",
+  "version": "1.0.0",
+  "description": "Demo showing issues with reactivity in an nwjs environment",
+  "main": "index.html",
+  "node-remote": "http://localhost:3000",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "start-server-and-test vite http-get://localhost:3000 'nw'"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "nw": "^0.52.0-sdk",
+    "vue": "^3.0.7",
+    "vuex": "^4.0.0",
+    "@vue/compiler-sfc": "^3.0.7",
+    "@vitejs/plugin-vue": "^1.1.5",
+    "start-server-and-test": "^1.12.0",
+    "vite": "^2.1.2"
+  }
+}
